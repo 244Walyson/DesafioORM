@@ -1,10 +1,9 @@
 package com.waly.desafioORM.entities;
 
 import jakarta.persistence.*;
+import jakarta.servlet.http.Part;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_participante")
@@ -16,6 +15,11 @@ public class Participante {
     @Column(unique = true)
     private String email;
 
+    @ManyToMany
+    @JoinTable(name = "tb_participante_atividade",
+            joinColumns = @JoinColumn(name = "atividade_id"),
+            inverseJoinColumns = @JoinColumn(name = "participante_id"))
+    private Set<Atividade> atividade = new HashSet<>();
 
     public Participante(){}
     public Participante(Long id, String nome, String email) {
@@ -47,7 +51,6 @@ public class Participante {
     public void setEmail(String email) {
         this.email = email;
     }
-
 
     @Override
     public boolean equals(Object o) {
