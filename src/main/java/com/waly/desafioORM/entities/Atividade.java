@@ -2,9 +2,7 @@ package com.waly.desafioORM.entities;
 
 import jakarta.persistence.*;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_atividade")
@@ -25,6 +23,8 @@ public class Atividade {
     @ManyToMany(mappedBy = "atividade")
    private Set<Participante> participante = new HashSet<>();
 
+    @OneToMany(mappedBy = "atividade")
+    private List<Bloco> bloco = new ArrayList<>();
     public Atividade(){}
 
     public Atividade(Long id, String nome, String descricao, Double preco) {
